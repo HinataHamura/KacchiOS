@@ -166,11 +166,4 @@ Institution: Rajshahi University of Engineering & Technology (RUET)
 
 Purpose: Educational OS development and experimentation
 
-📚 Learning Resources
-XINU OS
 
-OSDev Wiki
-
-The Little OS Book
-
-Operating Systems: Three Easy Pieces (OSTEP)  modify readme.md (See <attachments> above for file contents. You may not need to search or read the file again.)
