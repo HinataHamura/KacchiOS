@@ -1,5 +1,26 @@
 # 🍚 kacchiOS
 
+A minimal, educational baremetal operating system designed for teaching OS fundamentals.
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
+[![Platform](https://img.shields.io/badge/platform-x86-lightgrey.svg)]()
+
+## 📖 Overview
+
+kacchiOS is a simple, bare-metal operating system built from scratch for educational purposes. It provides a clean foundation for students to learn operating system concepts by implementing core components themselves.
+
+### Current Features
+
+- ✅ **Multiboot-compliant bootloader** - Boots via GRUB/QEMU
+- ✅ **Serial I/O driver** (COM1) - Communication via serial port
+- ✅ **Null process** - Single process that reads and echoes input
+- ✅ **Basic string utilities** - Essential string operations
+- ✅ **Clean, documented code** - Easy to understand and extend
+
+### Future Extensions (Student Assignments)
+# 🍚 kacchiOS
+
 A minimal, educational **bare-metal operating system** developed for learning and implementing core Operating System concepts.
 
 > This project is based on the original kacchiOS framework and extended as part of  
@@ -35,11 +56,11 @@ This version of kacchiOS extends the base system with **memory management, proce
 - Process Control Block (PCB) table
 - Process creation & termination
 - Process states:
-  - `NEW`
-  - `READY`
-  - `CURRENT`
-  - `WAITING`
-  - `TERMINATED`
+    - `NEW`
+    - `READY`
+    - `CURRENT`
+    - `WAITING`
+    - `TERMINATED`
 - Utility functions to query process information
 
 ### 🔹 Scheduler
@@ -62,17 +83,17 @@ This version of kacchiOS extends the base system with **memory management, proce
 #### Ubuntu / Debian
 ```bash
 sudo apt-get install build-essential qemu-system-x86 gcc-multilib
+```
 Arch Linux
-bash
-Copy code
+```bash
 sudo pacman -S base-devel qemu gcc-multilib
+```
 macOS
-bash
-Copy code
+```bash
 brew install qemu i686-elf-gcc
+```
 Build & Run
-bash
-Copy code
+```bash
 # Clone repository
 git clone https://github.com/farhan-shakib/kacchiOS.git
 cd kacchiOS
@@ -83,9 +104,9 @@ make
 
 # Run in QEMU
 make run
+```
 🖥️ Expected Output (Sample)
-sql
-Copy code
+```text
 Process created successfully
 Creating multiple test processes...
 Running scheduler (schedule())...
@@ -95,17 +116,17 @@ Running memory + stack tests...
 Memory allocation successful
 
 ========================================
-    kacchiOS - Minimal Baremetal OS
+        kacchiOS - Minimal Baremetal OS
 ========================================
 Hello from kacchiOS!
 Running null process...
 
 kacchiOS>
 Type any input and press Enter — it will echo back.
+```
 
 📁 Project Structure
-php
-Copy code
+```text
 kacchiOS/
 ├── boot.S          # Bootloader entry (Assembly)
 ├── kernel.c        # Kernel + tests + null process
@@ -126,14 +147,17 @@ kacchiOS/
 ├── link.ld         # Linker script
 ├── Makefile        # Build system
 └── README.md       # This file
+```
+
 🛠️ Build System
 Makefile Targets
-Command	Description
-make	Build kernel.elf
-make run	Run in QEMU (serial only)
-make run-vga	Run in QEMU with VGA
-make debug	Run with GDB support
-make clean	Remove build artifacts
+```text
+make        Build kernel.elf
+make run    Run in QEMU (serial only)
+make run-vga Run in QEMU with VGA
+make debug  Run with GDB support
+make clean  Remove build artifacts
+```
 
 🎓 Academic Context
 Course: CSE 3202 – Operating Systems Sessional
@@ -149,4 +173,4 @@ OSDev Wiki
 
 The Little OS Book
 
-Operating Systems: Three Easy Pieces (OSTEP)
+Operating Systems: Three Easy Pieces (OSTEP)  modify readme.md (See <attachments> above for file contents. You may not need to search or read the file again.)
