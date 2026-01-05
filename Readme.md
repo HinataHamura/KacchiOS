@@ -1,113 +1,152 @@
-# KacchiOS — Repository file index
+# 🍚 kacchiOS
 
-This README lists and briefly describes every file in the repository HinataHamura/KacchiOS as of 2026-01-05. It is intended to help contributors and users quickly find the important files and understand their purpose.
+A minimal, educational **bare-metal operating system** developed for learning and implementing core Operating System concepts.
 
-Notes:
-- Compiled object files (.o) and kernel.elf are included in the repository but typically are build artifacts. Prefer building from source using the provided Makefile.
-- Links point to the files on GitHub.
+> This project is based on the original kacchiOS framework and extended as part of  
+> **CSE 3202 – Operating Systems Sessional (RUET)**.
 
-Files:
+---
 
-- [LICENSE](https://github.com/HinataHamura/KacchiOS/blob/main/LICENSE)
-  - Project license text.
+## 📖 Overview
 
-- [Makefile](https://github.com/HinataHamura/KacchiOS/blob/main/Makefile)
-  - Build rules and targets for compiling the kernel and creating images.
+**kacchiOS** is a simple x86 bare-metal operating system built from scratch for educational purposes.  
+It provides a clean and understandable foundation to study how an OS works internally by implementing essential components manually.
 
-- [Readme.md](https://github.com/HinataHamura/KacchiOS/blob/main/Readme.md)
-  - The repository's original README (kept for reference).
+This version of kacchiOS extends the base system with **memory management, process management, scheduling, and inter-process communication (IPC)**.
 
-- [boot.S](https://github.com/HinataHamura/KacchiOS/blob/main/boot.S)
-  - Assembly bootstrap that prepares the environment before jumping to the kernel.
+---
 
-- [boot.o](https://github.com/HinataHamura/KacchiOS/blob/main/boot.o)
-  - Compiled object for the bootstrap assembly.
+## ✅ Implemented Features
 
-- [io.h](https://github.com/HinataHamura/KacchiOS/blob/main/io.h)
-  - I/O helper declarations and low-level hardware interfaces.
+### 🔹 Boot & Kernel
+- Multiboot-compliant bootloader (GRUB compatible)
+- Boots and runs on QEMU
+- Serial console I/O (COM1)
+- Interactive null process shell
 
-- [ipc.c](https://github.com/HinataHamura/KacchiOS/blob/main/ipc.c)
-  - Inter-process communication implementation.
+### 🔹 Memory Manager
+- Heap allocation & deallocation (`kmalloc`, `kfree`)
+- Heap placed safely after kernel using linker symbol
+- Optimized allocation (block splitting + coalescing)
+- Fixed-size stack allocation per process
+- Stack reuse after deallocation
 
-- [ipc.h](https://github.com/HinataHamura/KacchiOS/blob/main/ipc.h)
-  - IPC public interfaces and types.
+### 🔹 Process Manager
+- Process Control Block (PCB) table
+- Process creation & termination
+- Process states:
+  - `NEW`
+  - `READY`
+  - `CURRENT`
+  - `WAITING`
+  - `TERMINATED`
+- Utility functions to query process information
 
-- [ipc.o](https://github.com/HinataHamura/KacchiOS/blob/main/ipc.o)
-  - Compiled object for ipc.c.
+### 🔹 Scheduler
+- Round-Robin scheduling policy
+- Software-level context switching
+- Configurable time quantum
+- Aging mechanism to prevent starvation
 
-- [kernel.c](https://github.com/HinataHamura/KacchiOS/blob/main/kernel.c)
-  - Main kernel code and entry points.
+### 🔹 Inter-Process Communication (IPC)
+- Per-process message queues
+- FIFO message passing
+- Sender / Receiver processes
 
-- [kernel.elf](https://github.com/HinataHamura/KacchiOS/blob/main/kernel.elf)
-  - Linked ELF binary image of the kernel (build artifact).
+---
 
-- [kernel.o](https://github.com/HinataHamura/KacchiOS/blob/main/kernel.o)
-  - Compiled object for kernel.c.
+## 🚀 Quick Start
 
-- [link.ld](https://github.com/HinataHamura/KacchiOS/blob/main/link.ld)
-  - Linker script controlling the kernel's memory layout.
+### Prerequisites
 
-- [memory.c](https://github.com/HinataHamura/KacchiOS/blob/main/memory.c)
-  - Physical/virtual memory management implementation.
+#### Ubuntu / Debian
+```bash
+sudo apt-get install build-essential qemu-system-x86 gcc-multilib
+Arch Linux
+bash
+Copy code
+sudo pacman -S base-devel qemu gcc-multilib
+macOS
+bash
+Copy code
+brew install qemu i686-elf-gcc
+Build & Run
+bash
+Copy code
+# Clone repository
+git clone https://github.com/farhan-shakib/kacchiOS.git
+cd kacchiOS
 
-- [memory.h](https://github.com/HinataHamura/KacchiOS/blob/main/memory.h)
-  - Memory management interfaces and types.
+# Build
+make clean
+make
 
-- [memory.o](https://github.com/HinataHamura/KacchiOS/blob/main/memory.o)
-  - Compiled object for memory.c.
+# Run in QEMU
+make run
+🖥️ Expected Output (Sample)
+sql
+Copy code
+Process created successfully
+Creating multiple test processes...
+Running scheduler (schedule())...
+Hello from test process!
+IPC tests complete
+Running memory + stack tests...
+Memory allocation successful
 
-- [process.c](https://github.com/HinataHamura/KacchiOS/blob/main/process.c)
-  - Process creation, management, and lifecycle.
+========================================
+    kacchiOS - Minimal Baremetal OS
+========================================
+Hello from kacchiOS!
+Running null process...
 
-- [process.h](https://github.com/HinataHamura/KacchiOS/blob/main/process.h)
-  - Process-related types and declarations.
+kacchiOS>
+Type any input and press Enter — it will echo back.
 
-- [process.o](https://github.com/HinataHamura/KacchiOS/blob/main/process.o)
-  - Compiled object for process.c.
+📁 Project Structure
+php
+Copy code
+kacchiOS/
+├── boot.S          # Bootloader entry (Assembly)
+├── kernel.c        # Kernel + tests + null process
+├── memory.c        # Heap & stack memory manager
+├── memory.h
+├── process.c       # Process manager
+├── process.h
+├── scheduler.c     # Round Robin scheduler + aging
+├── scheduler.h
+├── ipc.c           # Inter-process communication
+├── ipc.h
+├── serial.c        # Serial port driver (COM1)
+├── serial.h
+├── string.c        # String utilities
+├── string.h
+├── types.h         # Basic type definitions
+├── io.h            # I/O port helpers
+├── link.ld         # Linker script
+├── Makefile        # Build system
+└── README.md       # This file
+🛠️ Build System
+Makefile Targets
+Command	Description
+make	Build kernel.elf
+make run	Run in QEMU (serial only)
+make run-vga	Run in QEMU with VGA
+make debug	Run with GDB support
+make clean	Remove build artifacts
 
-- [scheduler.c](https://github.com/HinataHamura/KacchiOS/blob/main/scheduler.c)
-  - Task scheduler implementation.
+🎓 Academic Context
+Course: CSE 3202 – Operating Systems Sessional
 
-- [scheduler.h](https://github.com/HinataHamura/KacchiOS/blob/main/scheduler.h)
-  - Scheduler public interfaces.
+Institution: Rajshahi University of Engineering & Technology (RUET)
 
-- [scheduler.o](https://github.com/HinataHamura/KacchiOS/blob/main/scheduler.o)
-  - Compiled object for scheduler.c.
+Purpose: Educational OS development and experimentation
 
-- [serial.c](https://github.com/HinataHamura/KacchiOS/blob/main/serial.c)
-  - Serial port driver and console I/O.
+📚 Learning Resources
+XINU OS
 
-- [serial.h](https://github.com/HinataHamura/KacchiOS/blob/main/serial.h)
-  - Serial driver interfaces.
+OSDev Wiki
 
-- [serial.o](https://github.com/HinataHamura/KacchiOS/blob/main/serial.o)
-  - Compiled object for serial.c.
+The Little OS Book
 
-- [string.c](https://github.com/HinataHamura/KacchiOS/blob/main/string.c)
-  - Basic string and memory helper functions used throughout the kernel.
-
-- [string.h](https://github.com/HinataHamura/KacchiOS/blob/main/string.h)
-  - Declarations for string helpers.
-
-- [string.o](https://github.com/HinataHamura/KacchiOS/blob/main/string.o)
-  - Compiled object for string.c.
-
-- [types.h](https://github.com/HinataHamura/KacchiOS/blob/main/types.h)
-  - Common type definitions used across the kernel.
-
-Build and usage
-
-1. Install the required cross-toolchain and tools (see Makefile for targets).
-2. Run `make` to build the kernel and generate images.
-3. Use QEMU or your preferred emulator to boot kernel. Example: `make run` (if configured in the Makefile).
-
-Notes and suggestions
-
-- Consider removing compiled artifacts (.o, kernel.elf) from the repository and adding them to .gitignore to keep the repo source-only. They can be built reproducibly with the provided Makefile.
-- If you want this README to include file contents (not just links and descriptions), tell me and I will update it to embed each source file content or provide a script that generates a full dump.
-
-License
-
-This repository includes a [LICENSE](https://github.com/HinataHamura/KacchiOS/blob/main/LICENSE) file. Please refer to it for licensing information.
-
-Generated on 2026-01-05 by HinataHamura's repository assistant.
+Operating Systems: Three Easy Pieces (OSTEP)
