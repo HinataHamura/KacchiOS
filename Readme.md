@@ -1,141 +1,113 @@
-# 🍚 kacchiOS
+# KacchiOS — Repository file index
 
-A minimal, educational baremetal operating system designed for teaching OS fundamentals.
+This README lists and briefly describes every file in the repository HinataHamura/KacchiOS as of 2026-01-05. It is intended to help contributors and users quickly find the important files and understand their purpose.
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
-[![Platform](https://img.shields.io/badge/platform-x86-lightgrey.svg)]()
+Notes:
+- Compiled object files (.o) and kernel.elf are included in the repository but typically are build artifacts. Prefer building from source using the provided Makefile.
+- Links point to the files on GitHub.
 
-## 📖 Overview
+Files:
 
-kacchiOS is a simple, bare-metal operating system built from scratch for educational purposes. It provides a clean foundation for students to learn operating system concepts by implementing core components themselves.
+- [LICENSE](https://github.com/HinataHamura/KacchiOS/blob/main/LICENSE)
+  - Project license text.
 
-### Current Features
+- [Makefile](https://github.com/HinataHamura/KacchiOS/blob/main/Makefile)
+  - Build rules and targets for compiling the kernel and creating images.
 
-- ✅ **Multiboot-compliant bootloader** - Boots via GRUB/QEMU
-- ✅ **Serial I/O driver** (COM1) - Communication via serial port
-- ✅ **Null process** - Single process that reads and echoes input
-- ✅ **Basic string utilities** - Essential string operations
-- ✅ **Clean, documented code** - Easy to understand and extend
+- [Readme.md](https://github.com/HinataHamura/KacchiOS/blob/main/Readme.md)
+  - The repository's original README (kept for reference).
 
-### Future Extensions (Student Assignments)
+- [boot.S](https://github.com/HinataHamura/KacchiOS/blob/main/boot.S)
+  - Assembly bootstrap that prepares the environment before jumping to the kernel.
 
-Students will extend kacchiOS by implementing:
-- 📝 **Memory Manager**
-- 📝 **Process Manager**
-- 📝 **Scheduler**
+- [boot.o](https://github.com/HinataHamura/KacchiOS/blob/main/boot.o)
+  - Compiled object for the bootstrap assembly.
 
-## 🚀 Quick Start
+- [io.h](https://github.com/HinataHamura/KacchiOS/blob/main/io.h)
+  - I/O helper declarations and low-level hardware interfaces.
 
-### Prerequisites
+- [ipc.c](https://github.com/HinataHamura/KacchiOS/blob/main/ipc.c)
+  - Inter-process communication implementation.
 
-```bash
-# On Ubuntu/Debian
-sudo apt-get install build-essential qemu-system-x86 gcc-multilib
+- [ipc.h](https://github.com/HinataHamura/KacchiOS/blob/main/ipc.h)
+  - IPC public interfaces and types.
 
-# On Arch Linux
-sudo pacman -S base-devel qemu gcc-multilib
+- [ipc.o](https://github.com/HinataHamura/KacchiOS/blob/main/ipc.o)
+  - Compiled object for ipc.c.
 
-# On macOS
-brew install qemu i686-elf-gcc
-```
+- [kernel.c](https://github.com/HinataHamura/KacchiOS/blob/main/kernel.c)
+  - Main kernel code and entry points.
 
-### Build and Run
+- [kernel.elf](https://github.com/HinataHamura/KacchiOS/blob/main/kernel.elf)
+  - Linked ELF binary image of the kernel (build artifact).
 
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/kacchiOS.git
-cd kacchiOS
+- [kernel.o](https://github.com/HinataHamura/KacchiOS/blob/main/kernel.o)
+  - Compiled object for kernel.c.
 
-# Build the OS
-make clean
-make
+- [link.ld](https://github.com/HinataHamura/KacchiOS/blob/main/link.ld)
+  - Linker script controlling the kernel's memory layout.
 
-# Run in QEMU
-make run
-```
+- [memory.c](https://github.com/HinataHamura/KacchiOS/blob/main/memory.c)
+  - Physical/virtual memory management implementation.
 
-You should see:
-```
-========================================
-    kacchiOS - Minimal Baremetal OS
-========================================
-Hello from kacchiOS!
-Running null process...
+- [memory.h](https://github.com/HinataHamura/KacchiOS/blob/main/memory.h)
+  - Memory management interfaces and types.
 
-kacchiOS> 
-```
+- [memory.o](https://github.com/HinataHamura/KacchiOS/blob/main/memory.o)
+  - Compiled object for memory.c.
 
-Type something and press Enter - it will echo back!
+- [process.c](https://github.com/HinataHamura/KacchiOS/blob/main/process.c)
+  - Process creation, management, and lifecycle.
 
-## 📁 Project Structure
+- [process.h](https://github.com/HinataHamura/KacchiOS/blob/main/process.h)
+  - Process-related types and declarations.
 
-```
-kacchiOS/
-├── boot.S          # Bootloader entry point (Assembly)
-├── kernel.c        # Main kernel (null process)
-├── serial.c        # Serial port driver (COM1)
-├── serial.h        # Serial driver interface
-├── string.c        # String utility functions
-├── string.h        # String utility interface
-├── types.h         # Basic type definitions
-├── io.h            # I/O port operations
-├── link.ld         # Linker script
-├── Makefile        # Build system
-└── README.md       # This file
-```
+- [process.o](https://github.com/HinataHamura/KacchiOS/blob/main/process.o)
+  - Compiled object for process.c.
 
-## 🛠️ Build System
+- [scheduler.c](https://github.com/HinataHamura/KacchiOS/blob/main/scheduler.c)
+  - Task scheduler implementation.
 
-### Makefile Targets
+- [scheduler.h](https://github.com/HinataHamura/KacchiOS/blob/main/scheduler.h)
+  - Scheduler public interfaces.
 
-| Command | Description |
-|---------|-------------|
-| `make` or `make all` | Build kernel.elf |
-| `make run` | Run in QEMU (serial output only) |
-| `make run-vga` | Run in QEMU (with VGA window) |
-| `make debug` | Run in debug mode (GDB ready) |
-| `make clean` | Remove build artifacts |
+- [scheduler.o](https://github.com/HinataHamura/KacchiOS/blob/main/scheduler.o)
+  - Compiled object for scheduler.c.
 
-## 📚 Learning Resources
+- [serial.c](https://github.com/HinataHamura/KacchiOS/blob/main/serial.c)
+  - Serial port driver and console I/O.
 
-### Recommended Reading
+- [serial.h](https://github.com/HinataHamura/KacchiOS/blob/main/serial.h)
+  - Serial driver interfaces.
 
-- [XINU OS](https://xinu.cs.purdue.edu/) - Educational OS similar to kacchiOS
-- [OSDev Wiki](https://wiki.osdev.org/) - Comprehensive OS development guide
-- [The Little OS Book](https://littleosbook.github.io/) - Practical OS development
-- [Operating Systems: Three Easy Pieces](https://pages.cs.wisc.edu/~remzi/OSTEP/) - OS concepts textbook
+- [serial.o](https://github.com/HinataHamura/KacchiOS/blob/main/serial.o)
+  - Compiled object for serial.c.
 
-### Related Topics
+- [string.c](https://github.com/HinataHamura/KacchiOS/blob/main/string.c)
+  - Basic string and memory helper functions used throughout the kernel.
 
-- x86 Assembly Language
-- Memory Management
-- Process Scheduling
-- System Calls
-- Interrupt Handling
+- [string.h](https://github.com/HinataHamura/KacchiOS/blob/main/string.h)
+  - Declarations for string helpers.
 
-## 🤝 Contributing
+- [string.o](https://github.com/HinataHamura/KacchiOS/blob/main/string.o)
+  - Compiled object for string.c.
 
-Contributions are welcome! Please feel free to submit issues and pull requests.
+- [types.h](https://github.com/HinataHamura/KacchiOS/blob/main/types.h)
+  - Common type definitions used across the kernel.
 
-### Guidelines
+Build and usage
 
-1. Keep code simple and educational
-2. Add comments explaining complex concepts
-3. Follow existing code style
-4. Test changes in QEMU before submitting
+1. Install the required cross-toolchain and tools (see Makefile for targets).
+2. Run `make` to build the kernel and generate images.
+3. Use QEMU or your preferred emulator to boot kernel. Example: `make run` (if configured in the Makefile).
 
-## 📄 License
+Notes and suggestions
 
-This project is licensed under the MIT License.
+- Consider removing compiled artifacts (.o, kernel.elf) from the repository and adding them to .gitignore to keep the repo source-only. They can be built reproducibly with the provided Makefile.
+- If you want this README to include file contents (not just links and descriptions), tell me and I will update it to embed each source file content or provide a script that generates a full dump.
 
-## 👨‍🏫 About
+License
 
-kacchiOS was created as an educational tool for teaching operating system concepts. It provides a minimal, working foundation that students can extend to learn core OS principles through hands-on implementation.
+This repository includes a [LICENSE](https://github.com/HinataHamura/KacchiOS/blob/main/LICENSE) file. Please refer to it for licensing information.
 
-## 🙏 Acknowledgments
-
-- Inspired by XINU OS
-- Built with guidance from OSDev community
-- Thanks to all students who have contributed
-# KacchiOS
+Generated on 2026-01-05 by HinataHamura's repository assistant.
